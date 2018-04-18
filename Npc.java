@@ -1,4 +1,4 @@
-package labyrinthgame;
+//package labyrinthgame;
 
 public class Npc extends MoveThing{
     

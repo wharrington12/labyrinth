@@ -1,4 +1,4 @@
-package labyrinthgame;
+//package labyrinthgame;
 
 import java.awt.Color;
 import java.awt.Component;

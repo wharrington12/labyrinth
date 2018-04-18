@@ -1,4 +1,4 @@
-package labyrinthgame;
+//package labyrinthgame;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -12,6 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 public class Main extends JFrame{
+
+    private static final long serialVersionUID = 123456789;
 
     /**
      * @param args the command line arguments
