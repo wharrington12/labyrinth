@@ -1,0 +1,30 @@
+   public static GameState setSquare(int mover, GameState gs){
+        int[] position = new int [2];
+        position= gs.characters[mover].position;
+        Square s = gs.map[position[0], position[1]];
+        int[] chosen;
+        if (s.getSpecialValue() > 0) {
+        for( int i = 0; i < s.getSpecialValue(); i++) {
+            
+            chosen = chooseSquare();
+            gs.map[chosen[0], chosen[1]].setLocked();
+            gs.map[chosen[0], chosen[1]].resetSpecialValue(); 
+            
+            }
+            return gs;           
+            
+        
+        }
+        else { 
+        
+        return gs;
+        }
+        
+    }
+    
+    
+    private static int[] chooseSquare {
+    
+    return {0,0};
+
+    }
