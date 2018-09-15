@@ -13,7 +13,7 @@ int mover = -1;
 String direction = "";
 
 boolean[] haveMoved = new boolean[3];
-
+boolean  moveTiles = false;
      
 void settings() {
   size (700, 700);
@@ -51,11 +51,17 @@ void setup() {
 }
    
    void draw() {
+        for (int i = 0; i < 3; i++) {
+           if (m[i].getWon()) {
+              exit(); 
+           }
+        }
         //print(direction);
         drawGs(gs);
+        moveTiles = false;
         int i; 
-        for(i=0; haveMoved[i]; i++){}
-        if (i == mover){
+        for(i=0; i < 3 && haveMoved[i]; i++){}
+        if (i == mover || i == 2){
           try {
             gs = takeTurn(i, gs, direction);
             haveMoved[i] = true;
@@ -63,6 +69,14 @@ void setup() {
             
           }
         }
+        for (i=0; i < 3 && haveMoved[i]; i++) {}
+        if (i == 3) {
+          haveMoved[0] = false;
+          haveMoved[1] = false;
+          haveMoved[2] = false;
+          moveTiles = true;
+        }
+        
        
     /*    while (!gs.characters[0].getWon()&&!gs.characters[1].getWon()&&!gs.characters[2].getWon()){ 
             boolean keep_going = true;
@@ -224,13 +238,16 @@ void setup() {
     }
     
     void drawGs(GameState gs){
-     
+      background(255);
       fill(0);
       
       //Draws anything inherent to the spaces
       for (int i=0; i < gs.gMap.length; i++){
         for (int j=0; j< gs.gMap[0].length; j++){
           //Draws the walls
+          if (moveTiles) {
+            gs.gMap[i][j].move();
+          }
           int[] walls = gs.gMap[i][j].getWalls();
           if (walls[0] == 1) {
             rect(j*100 + 0, i*100 + 0, 98, 9);
