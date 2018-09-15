@@ -1,9 +1,15 @@
+Level lev = new Level(2);
+Square[][] map = lev.getMap();
+        
+GameState gs = new GameState();
+        
+Player player1 = new Player();
+Player player2 = new Player();
+Npc minotaur = new Npc();
+      
+MoveThing[] m = new MoveThing[3];
 
-    private static final long serialVersionUID = 123456789;
 
-    /**
-     * @param args the command line arguments
-     */
      
 void settings() {
   size (700, 700);
@@ -11,45 +17,32 @@ void settings() {
     
 void setup() {
   background(255);
+  gs.setMap(lev.getMap());
+  gs.setGameMode("Normal");
+  gs.setNumTreasure(lev.getNumTreasure());
+  
+  player1.setPosition(lev.getStart(1));
+  player2.setPosition(lev.getStart(2));
+  minotaur.setPosition(lev.getStart(3));
+  player1.owner = "Cyan";
+  player2.owner = "Purple";
+  minotaur.owner = "Minotaur";
+      
+  player1.setGoal(lev.getGoal(2));
+  player2.setGoal(lev.getGoal(1));
+      
+  player1.setChar('A');                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+  player2.setChar('B');
+  minotaur.setChar('M');
+  
+  m[0] = player1;
+  m[1] = player2;
+  m[2] = minotaur;
+  
+  gs.setCharacters(m);
 }
    
    void draw() {
-        Level lev = new Level(2);
-        Square[][] map = lev.getMap();
-        
-        GameState gs = new GameState();
-
-        //drawGs(gs);
-        
-        gs.setMap(lev.getMap());
-        gs.setGameMode("Normal");
-        gs.setNumTreasure(lev.getNumTreasure());
-        
-        Player player1 = new Player();
-        Player player2 = new Player();
-        Npc minotaur = new Npc();
-
-        player1.setPosition(lev.getStart(1));
-        player2.setPosition(lev.getStart(2));
-        minotaur.setPosition(lev.getStart(3));
-      
-        player1.setGoal(lev.getGoal(2));
-        player2.setGoal(lev.getGoal(1));
-      
-        player1.setChar('A');                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
-        player2.setChar('B');
-        minotaur.setChar('M');
-      
-        player1.owner = "Cyan";
-        player2.owner = "Purple";
-        minotaur.owner = "Minotaur";
-      
-        MoveThing[] m = new MoveThing[3];
-        m[0] = player1;
-        m[1] = player2;
-        m[2] = minotaur;
-        gs.setCharacters(m);
-
         drawGs(gs);
      
     /*    while (!gs.characters[0].getWon()&&!gs.characters[1].getWon()&&!gs.characters[2].getWon()){ 
