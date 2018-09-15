@@ -9,6 +9,8 @@ Npc minotaur = new Npc();
       
 MoveThing[] m = new MoveThing[3];
 
+PImage floor;
+
 int mover = -1;
 String direction = "";
 
@@ -48,6 +50,7 @@ void setup() {
   for (int i=0; i<haveMoved.length; i++){
     haveMoved[i] = false;
   }
+  floor = loadImage("pixil-frame-0.png.png");
 }
    
    void draw() {
@@ -175,6 +178,11 @@ void setup() {
     
     void drawGs(GameState gs){
       background(255);
+      for (int i = 0; i < 7; i++) {
+         for (int j = 0; j < 7; j++) {
+            image(floor, 100*i, 100*j); 
+         }
+      }
       fill(0);
       
       //Draws anything inherent to the spaces
