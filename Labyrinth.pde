@@ -12,8 +12,8 @@ MoveThing[] m = new MoveThing[3];
 int mover = -1;
 String direction = "";
 
-boolean[] haveMoved = new boolean[gs.characters.length];
-
+boolean[] haveMoved = new boolean[3];
+boolean  moveTiles = false;
      
 void settings() {
   size (700, 700);
@@ -51,13 +51,32 @@ void setup() {
 }
    
    void draw() {
-        print(direction);
-        drawGs(gs);
-        int i; 
-        for(i=0; haveMoved[i]; i++){}
-        if (i == mover){
-          gs = takeTurn(i, gs, direction);
+        for (int i = 0; i < 3; i++) {
+           if (m[i].getWon()) {
+              exit(); 
+           }
         }
+        //print(direction);
+        drawGs(gs);
+        moveTiles = false;
+        int i; 
+        for(i=0; i < 3 && haveMoved[i]; i++){}
+        if (i == mover || i == 2){
+          try {
+            gs = takeTurn(i, gs, direction);
+            haveMoved[i] = true;
+          } catch(InvalidMoveException e) {
+            
+          }
+        }
+        for (i=0; i < 3 && haveMoved[i]; i++) {}
+        if (i == 3) {
+          haveMoved[0] = false;
+          haveMoved[1] = false;
+          haveMoved[2] = false;
+          moveTiles = true;
+        }
+        
        
     /*    while (!gs.characters[0].getWon()&&!gs.characters[1].getWon()&&!gs.characters[2].getWon()){ 
             boolean keep_going = true;
@@ -172,7 +191,7 @@ void setup() {
         return map;
     }
     
-    public static GameState takeTurn(int mover, GameState gs, int[] pos){
+    public static GameState takeTurn(int mover, GameState gs, String dir){
         if (mover==2){
    
             MoveThing[] players = new MoveThing[2];
@@ -197,12 +216,11 @@ void setup() {
       }
       gs.characters[mover].setPlayers(players);
       gs.characters[mover].setGameState(gs);
-      gs.characters[mover].setMousePos(pos);
   }
 
         if (gs.getMoveThings()[mover].getIsAlive()){
 
-                gs.characters[mover].move();
+                gs.characters[mover].move(dir);
                
          }
   if(mover == 2) {
@@ -220,13 +238,16 @@ void setup() {
     }
     
     void drawGs(GameState gs){
-     
+      background(255);
       fill(0);
       
       //Draws anything inherent to the spaces
       for (int i=0; i < gs.gMap.length; i++){
         for (int j=0; j< gs.gMap[0].length; j++){
           //Draws the walls
+          if (moveTiles) {
+            gs.gMap[i][j].move();
+          }
           int[] walls = gs.gMap[i][j].getWalls();
           if (walls[0] == 1) {
             rect(j*100 + 0, i*100 + 0, 98, 9);

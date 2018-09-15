@@ -1,24 +1,27 @@
 public class Player extends MoveThing{
     
     //private int[] goal;
-    private int[] mp = new int[2];
+    //private int[] mp = new int[2];
     private MoveThing[] players;
     private GameState game;
+    private int maxX;
+    private int maxY;
     
     public Player(){
         super();
         this.goal = new int[2];
-        
     }
     
     //Obviously needs to be changed
     @Override
-    public void move() throws InvalidMoveException {
-  Square dest = this.getDestination();
-  boolean valid = this.isValidMove(dest);
-  if(!valid) {
-      throw new InvalidMoveException(); 
-  }
+    public void move(String s) throws InvalidMoveException {
+      this.maxX = this.game.gMap[0].length - 1;
+      this.maxY = this.game.gMap.length - 1;
+      Square dest = this.getDestination(s);
+      boolean valid = this.isValidMove(dest);
+      if(!valid) {
+          throw new InvalidMoveException(); 
+      }
 
   this.position = dest.position;
         if (dest.getHasTreasure()){
@@ -35,23 +38,50 @@ public class Player extends MoveThing{
   }
     }
     
-    public void setMousePos(int[] pos) {
+    /*public void setDirection(String dir) {
         this.mp[0] = pos[0];
         this.mp[1] = pos[1];
-    }
+    }*/
     
-    private int[] convertCoord(int[] x)   {
+    /*private int[] convertCoord(int[] x)   {
         int[] new_c = new int[2];
         new_c[0] = (x[1]-40)/100;
         new_c[1] = (x[0])/100;
     return new_c;
       
-    }
+    }*/
 
-    private Square getDestination() {
-        int[] coords = this.convertCoord(this.mp);
+    private Square getDestination(String dir) {
+        int ind = 0;
+        int change = 0;
+        if(dir.equals("up")) {
+            ind = 0;
+            change = -1;
+        } else if(dir.equals("down")) {
+            ind = 0;
+            change = 1;
+        } else if(dir.equals("left")) {
+            ind = 1;
+            change = -1;
+        } else if(dir.equals("right")) {
+            ind = 1;
+            change = 1;
+        }
+        if (this.position[ind] + change < 0) {
+            throw new InvalidMoveException();
+        }
+        if (ind == 0 && this.position[ind] + change > maxX) {
+           throw new InvalidMoveException(); 
+        }
+        if (ind == 1 && this.position[ind] + change > maxY) {
+           throw new InvalidMoveException(); 
+        }
+        
+        int[] tempPos = {0, 0};
+        tempPos[ind] = position[ind] + change;
+        tempPos[1-ind] = position[1-ind];
       
-        Square s = this.game.gMap[coords[0]][coords[1]];
+        Square s = this.game.gMap[tempPos[0]][tempPos[1]];
 
         return s;
     }
