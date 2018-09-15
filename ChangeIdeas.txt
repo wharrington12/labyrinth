@@ -13,6 +13,7 @@ Developer Stuff:
 	Level creator
 	Save System
 	Reset
+	Different rotate configurations
 
 New Game Features:
 	Special Value
