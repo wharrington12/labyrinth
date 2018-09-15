@@ -77,78 +77,6 @@ void setup() {
           moveTiles = true;
         }
         
-       
-    /*    while (!gs.characters[0].getWon()&&!gs.characters[1].getWon()&&!gs.characters[2].getWon()){ 
-            boolean keep_going = true;
-            int[] pos = new int[2];
-          if(gs.characters[0].getIsAlive()) {
-                    while(keep_going) {
-            try {
-                            pos = new int[2];
-                            mouseUser.clicked = false;
-                            while(!mouseUser.clicked) {
-              System.out.print("");
-                            }
-                            mouseUser.clicked = false;
-                            pos = mouseUser.position;
-                            gs = takeTurn(0, gs, pos);
-                            keep_going = false;
-            } catch(InvalidMoveException e) {}
-                    }
-          }
-          keep_going = true;
-          if(gs.characters[0].getWon() ) {
-                    drawGs(gs);
-                    JLabel winner = new JLabel("");
-                    if(gs.getGameMode().equals("Normal")){
-                        winner = new JLabel(gs.characters[0].owner + " is the Champion!", SwingConstants.CENTER);
-                    }if(gs.getGameMode().equals("Collab")){
-                        winner = new JLabel("Players have won!", SwingConstants.CENTER);
-                    }
-                    Container contentPane = gs.getContentPane();
-                    contentPane.add(winner);
-                    gs.setVisible(true);
-                    //drawGs(gs);
-          }
-            if(gs.characters[1].getIsAlive()) {
-                while(keep_going) {
-                    try {
-                        pos = new int[2];
-                        mouseUser.clicked = false;
-                        while(!mouseUser.clicked) {
-                            System.out.print("");
-                        }
-                        mouseUser.clicked = false;
-                        pos = mouseUser.position;
-                        gs = takeTurn(1, gs, pos);
-                        keep_going = false;
-                    } catch(InvalidMoveException e) {}
-                }  
-            }
-            if(gs.characters[1].getWon()) {
-                drawGs(gs);
-              JLabel winner = new JLabel(gs.characters[1].owner + " is the Champion!", SwingConstants.CENTER);
-              Container contentPane = gs.getContentPane();
-              contentPane.add(winner);
-              gs.setVisible(true);
-              //drawGs(gs);
-            }
-            TimeUnit.MILLISECONDS.sleep(500);
-            gs = takeTurn(2, gs, pos);
-            TimeUnit.MILLISECONDS.sleep(500);
-            gs = takeTurn(2, gs, pos);
-            TimeUnit.MILLISECONDS.sleep(500);
-            gs.setMap(move(gs.getMap()));
-            drawGs(gs);
-            if(gs.characters[2].getWon()) {
-                drawGs(gs);
-              JLabel winner = new JLabel(gs.characters[2].owner + " is the Champion!", SwingConstants.CENTER);
-              Container contentPane = gs.getContentPane();
-              contentPane.add(winner);
-              gs.setVisible(true);
-              //drawGs(gs);
-            }
-        }*/
     }
     
     void keyPressed() {
@@ -165,6 +93,10 @@ void setup() {
          mover = 0;
          direction = "right";
        }
+       else if (key == ' ') {
+         mover = 0;
+         direction = "same";
+       }
        else if (key == CODED) {
           if (keyCode == UP) {
             mover = 1;
@@ -178,6 +110,10 @@ void setup() {
           } else if (keyCode == RIGHT) {
             mover = 1;
             direction = "right";
+          }
+          else if (keyCode == SHIFT) {
+             mover = 1;
+             direction = "same";
           }
        }
     }

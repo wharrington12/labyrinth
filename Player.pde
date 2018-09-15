@@ -66,6 +66,9 @@ public class Player extends MoveThing{
         } else if(dir.equals("right")) {
             ind = 1;
             change = 1;
+        } else if(dir.equals("same")) {
+           ind = 1;
+           change = 0;
         }
         if (this.position[ind] + change < 0) {
             throw new InvalidMoveException();
