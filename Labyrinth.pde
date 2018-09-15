@@ -9,6 +9,8 @@ Npc minotaur = new Npc();
       
 MoveThing[] m = new MoveThing[3];
 
+int mover = -1;
+String direction = "";
 
      
 void settings() {
@@ -43,8 +45,9 @@ void setup() {
 }
    
    void draw() {
+         print(direction);
         drawGs(gs);
-     
+       
     /*    while (!gs.characters[0].getWon()&&!gs.characters[1].getWon()&&!gs.characters[2].getWon()){ 
             boolean keep_going = true;
             int[] pos = new int[2];
@@ -116,6 +119,37 @@ void setup() {
               //drawGs(gs);
             }
         }*/
+    }
+    
+    void keyPressed() {
+       if (key == 'w') {
+         mover = 0;
+         direction = "up";
+       } else if (key == 's') {
+         mover = 0;
+         direction = "down";
+       } else if (key == 'a') {
+         mover = 0;
+         direction = "left";
+       } else if (key == 'd') {
+         mover = 0;
+         direction = "right";
+       }
+       else if (key == CODED) {
+          if (keyCode == UP) {
+            mover = 1;
+            direction = "up";
+          } else if (keyCode == DOWN) {
+            mover = 1;
+            direction = "down";
+          } else if (keyCode == LEFT) {
+            mover = 1;
+            direction = "left";
+          } else if (keyCode == RIGHT) {
+            mover = 1;
+            direction = "right";
+          }
+       }
     }
     
     public static Square[][] move(Square[][] map){
