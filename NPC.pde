@@ -63,7 +63,7 @@ public class Npc extends MoveThing{
     }
   }
 
-  Square dest = this.game.map[new_x][new_y];
+  Square dest = this.game.gMap[new_x][new_y];
   
   if(this.isValidMove(dest)) {
       this.position[0] = new_x;
@@ -88,7 +88,7 @@ public class Npc extends MoveThing{
 
   boolean valid = false;
 
-  Square c = this.game.map[this.position[0]][this.position[1]];
+  Square c = this.game.gMap[this.position[0]][this.position[1]];
 
         if(this.position[0] < s.position[0] && this.position[1] == s.position[1]) {
             if(s.getWalls()[0] == 0 && c.getWalls()[2] == 0) {

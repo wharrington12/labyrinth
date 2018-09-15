@@ -51,7 +51,7 @@ public class Player extends MoveThing{
     private Square getDestination() {
         int[] coords = this.convertCoord(this.mp);
       
-        Square s = this.game.map[coords[0]][coords[1]];
+        Square s = this.game.gMap[coords[0]][coords[1]];
 
         return s;
     }
@@ -60,7 +60,7 @@ public class Player extends MoveThing{
 
         boolean valid = false;
 
-        Square c = this.game.map[this.position[0]][this.position[1]];
+        Square c = this.game.gMap[this.position[0]][this.position[1]];
 
         if(this.position[0] < s.position[0] && this.position[1] == s.position[1]) {
             if(s.getWalls()[0] == 0 && c.getWalls()[2] == 0) {
