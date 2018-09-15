@@ -1,5 +1,3 @@
-//package labyrinthgame;
-
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
@@ -63,23 +61,23 @@ public class Main extends JFrame{
         while (!gs.characters[0].getWon()&&!gs.characters[1].getWon()&&!gs.characters[2].getWon()){ 
             boolean keep_going = true;
             int[] pos = new int[2];
-        	if(gs.characters[0].getIsAlive()) {
+          if(gs.characters[0].getIsAlive()) {
                     while(keep_going) {
-        		try {
+            try {
                             pos = new int[2];
                             mouseUser.clicked = false;
                             while(!mouseUser.clicked) {
-        			System.out.print("");
+              System.out.print("");
                             }
                             mouseUser.clicked = false;
                             pos = mouseUser.position;
                             gs = takeTurn(0, gs, pos);
                             keep_going = false;
-        		} catch(InvalidMoveException e) {}
+            } catch(InvalidMoveException e) {}
                     }
-        	}
-        	keep_going = true;
-        	if(gs.characters[0].getWon() ) {
+          }
+          keep_going = true;
+          if(gs.characters[0].getWon() ) {
                     gs.repaint();
                     JLabel winner = new JLabel("");
                     if(gs.getGameMode().equals("Normal")){
@@ -91,7 +89,7 @@ public class Main extends JFrame{
                     contentPane.add(winner);
                     gs.setVisible(true);
                     //gs.repaint();
-        	}
+          }
             if(gs.characters[1].getIsAlive()) {
                 while(keep_going) {
                     try {
@@ -105,15 +103,15 @@ public class Main extends JFrame{
                         gs = takeTurn(1, gs, pos);
                         keep_going = false;
                     } catch(InvalidMoveException e) {}
-                }	
+                }  
             }
             if(gs.characters[1].getWon()) {
                 gs.repaint();
-            	JLabel winner = new JLabel(gs.characters[1].owner + " is the Champion!", SwingConstants.CENTER);
-            	Container contentPane = gs.getContentPane();
-            	contentPane.add(winner);
-            	gs.setVisible(true);
-            	//gs.repaint();
+              JLabel winner = new JLabel(gs.characters[1].owner + " is the Champion!", SwingConstants.CENTER);
+              Container contentPane = gs.getContentPane();
+              contentPane.add(winner);
+              gs.setVisible(true);
+              //gs.repaint();
             }
             TimeUnit.MILLISECONDS.sleep(500);
             gs = takeTurn(2, gs, pos);
@@ -124,11 +122,11 @@ public class Main extends JFrame{
             gs.repaint();
             if(gs.characters[2].getWon()) {
                 gs.repaint();
-            	JLabel winner = new JLabel(gs.characters[2].owner + " is the Champion!", SwingConstants.CENTER);
-            	Container contentPane = gs.getContentPane();
-            	contentPane.add(winner);
-            	gs.setVisible(true);
-            	//gs.repaint();
+              JLabel winner = new JLabel(gs.characters[2].owner + " is the Champion!", SwingConstants.CENTER);
+              Container contentPane = gs.getContentPane();
+              contentPane.add(winner);
+              gs.setVisible(true);
+              //gs.repaint();
             }
         }
     }
@@ -152,36 +150,36 @@ public class Main extends JFrame{
             gs.characters[mover].setPlayers(players);
             gs.characters[mover].setGameState(gs);
         }
-	if (mover != 2) {
-	
-	    MoveThing[] players = new MoveThing[2];
-	    int diff = 0;
+  if (mover != 2) {
+  
+      MoveThing[] players = new MoveThing[2];
+      int diff = 0;
 
-	    for(int i = 0; i < gs.characters.length; i++) {
-		if(i != mover) {
-		    players[i-diff] = gs.characters[i];
-		}
-		else {
-		    diff++;
-		}
-	    }
-	    gs.characters[mover].setPlayers(players);
-	    gs.characters[mover].setGameState(gs);
-	    gs.characters[mover].setMousePos(pos);
-	}
+      for(int i = 0; i < gs.characters.length; i++) {
+    if(i != mover) {
+        players[i-diff] = gs.characters[i];
+    }
+    else {
+        diff++;
+    }
+      }
+      gs.characters[mover].setPlayers(players);
+      gs.characters[mover].setGameState(gs);
+      gs.characters[mover].setMousePos(pos);
+  }
 
         if (gs.getMoveThings()[mover].getIsAlive()){
 
                 gs.characters[mover].move();
                
          }
-	if(mover == 2) {
-	    for(int i = 0; i < gs.characters.length - 1; i++) {
-		if(gs.characters[mover].didKill(gs.characters[i])) {
-		   gs.characters[i].setAlive(false);
-		}
-	    }
-	}
+  if(mover == 2) {
+      for(int i = 0; i < gs.characters.length - 1; i++) {
+    if(gs.characters[mover].didKill(gs.characters[i])) {
+       gs.characters[i].setAlive(false);
+    }
+      }
+  }
         gs.repaint();
         if (gs.getMoveThings()[mover].getWon()){
             return gs;

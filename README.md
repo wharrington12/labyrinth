@@ -1,1 +1,0 @@
-Labyrinth game created at HopHacks Spring 2018
