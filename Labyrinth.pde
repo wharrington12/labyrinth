@@ -12,6 +12,8 @@ MoveThing[] m = new MoveThing[3];
 int mover = -1;
 String direction = "";
 
+boolean[] haveMoved = new boolean[gs.characters.length];
+
      
 void settings() {
   size (700, 700);
@@ -42,11 +44,20 @@ void setup() {
   m[2] = minotaur;
   
   gs.setCharacters(m);
+  
+  for (int i=0; i<haveMoved.length; i++){
+    haveMoved[i] = false;
+  }
 }
    
    void draw() {
-         print(direction);
+        print(direction);
         drawGs(gs);
+        int i; 
+        for(i=0; haveMoved[i]; i++){}
+        if (i == mover){
+          gs = takeTurn(i, gs, direction);
+        }
        
     /*    while (!gs.characters[0].getWon()&&!gs.characters[1].getWon()&&!gs.characters[2].getWon()){ 
             boolean keep_going = true;
