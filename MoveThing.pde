@@ -26,9 +26,9 @@ public class MoveThing {
     }
     
     //Should be overridden in all children
-    public void move(){}
+    public void move(String s){}
     
-    public void setMousePos(int[] pos) {
+    public void setDirection(String dir) {
       
     }
     

@@ -10,7 +10,7 @@ public class Npc extends MoveThing{
     
     //Needs to be changed
     @Override
-    public void move() {
+    public void move(String s) {
   int index_closest = 0;
   int smallest_dist = Integer.MAX_VALUE;
   for(int i = 0; i < this.players.length; i++) {
