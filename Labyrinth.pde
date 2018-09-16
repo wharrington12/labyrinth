@@ -11,6 +11,7 @@ MoveThing[] m = new MoveThing[3];
 
 PImage floor;
 PImage gameOverText;
+PImage minoImage;
 PImage[] flags;
 PImage[] gameOver;
 PImage[] iWalls;
@@ -63,6 +64,8 @@ void setup() {
   floor.filter(GRAY);
   gameOverText = loadImage("images/Game_Over.png");
   gameOverText.resize(700, 700);
+  minoImage = loadImage("images/minotaur.png");
+  minoImage.resize(150,150);
   flags[0] = loadImage("images/cyan-flag.png");
   flags[1] = loadImage("images/magenta-flag.png");
   iWalls[0] = loadImage("images/top-wall.png");
@@ -309,6 +312,9 @@ void setup() {
       for (int i=0; i< gs.characters.length; i++){
         int[] pos = gs.characters[i].getPosition();
         if(!gs.characters[i].getIsAlive()) {}
+        else if(i == 2){
+          image(minoImage, 100*pos[1]-12, 100*pos[0]-12);
+        }
         else {
           fill(colors[i][0], colors[i][1], colors[i][2]);
           ellipse(100*pos[1] + 50, 100*pos[0] + 50, 50, 50);
