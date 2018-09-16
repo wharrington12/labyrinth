@@ -12,6 +12,7 @@ MoveThing[] m = new MoveThing[3];
 PImage floor;
 PImage gameOverText;
 PImage minoImage;
+PImage chalice;
 PImage[] flags;
 PImage[] gameOver;
 PImage[] iWalls;
@@ -32,7 +33,7 @@ void settings() {
 void setup() {
   background(255);
   gs.setMap(lev.getMap());
-  gs.setGameMode("Normal");
+  gs.setGameMode("Collab");
   gs.setNumTreasure(lev.getNumTreasure());
   
   player1.setPosition(lev.getStart(1));
@@ -66,6 +67,7 @@ void setup() {
   gameOverText.resize(700, 700);
   minoImage = loadImage("images/minotaur.png");
   minoImage.resize(150,150);
+  chalice = loadImage("images/chalice.png");
   flags[0] = loadImage("images/cyan-flag.png");
   flags[1] = loadImage("images/magenta-flag.png");
   iWalls[0] = loadImage("images/top-wall.png");
@@ -274,9 +276,7 @@ void setup() {
           }
           //Draws the treasure for coop
           if (gs.gMap[i][j].getHasTreasure()&&gs.gameMode.equals("Collab")){
-            fill(255,255,0);
-            ellipse(100*j + 40, 100*i + 40, 50, 50);
-            fill(0);
+            image(chalice, 100*j, 100*i);
           }
         }
       }
