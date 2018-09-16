@@ -1,3 +1,8 @@
+import java.util.Scanner;
+import java.io.File;
+import java.io.PrintWriter;
+import java.io.IOException;
+
 public class Level {
     
     private Square[][] map;
@@ -175,7 +180,69 @@ public class Level {
                 break;
         }
     }
+    public Square[][] input(String s) throws IOException {
+        Scanner reader = new Scanner(new File(s));
+        int i, j, k, a, b, c;
+        while(reader.hasNext()) {
+            i = reader.nextInt();
+            j = reader.nextInt();
+            this.map = new Square[i][j];
+            i = reader.nextInt();
+            j = reader.nextInt();
+            k = reader.nextInt();
+            a = reader.nextInt();
+            b = reader.nextInt();
+            c = reader.nextInt();
+            this.start = new int[][] {{i,j},{k,a},{b,c}};
+            i = reader.nextInt();
+            j = reader.nextInt();
+            k = reader.nextInt();
+            a = reader.nextInt();
+            this.goal = new int[][] {{i,j},{k,a}};
+            for (int h = 0; h < this.map.length; h++) {
+                for(int r =0; r < this.map[i].length; r++) {
+                    i = reader.nextInt();
+                    j = reader.nextInt();
+                    k = reader.nextInt();
+                    a = reader.nextInt();
+                    this.map[h][r] = new Square(new int[]{h,r}, new int[]{i,j,k,a}, 1);
+                }
+            }
+            i = reader.nextInt();
+            this.numTreasure = i;
+            for (int h = 0; h < this.numTreasure; h++) {
+                    i = reader.nextInt();
+                    j = reader.nextInt();
+                    this.map[i][j].setHasTreasure(true);
+            }
+       }       
+    }
     
+    public void output (String s) throws IOException {
+       PrintWriter outFile = new PrintWriter(new File(s));
+       outFile.printf("%d%d\n", this.map.length,  this.map[1].length);
+       for(int i = 0; i < this.start.length, i++) {
+               outFile.printf("%d %d\n", this.start[i][0], this.start[i][1]);
+       }
+       for(int i = 0; i < this.goal.length, i++) {
+               outFile.printf("%d %d\n", this.goal[i][0], this.goal[i][1]);
+       }
+       for (int h = 0; h < this.map.length; h++) {
+            for(int r =0; r < this.map[i].length; r++) {
+                    int[] walls = this.map[h][r].getWalls(); 
+                    outFile.printf("%d %d %d %d\n", walls[0], walls[1], walls[2], walls[3]);
+             }
+       }
+       outFile.printf("%d\n", this.numTreasure);
+       for (int h = 0; h < this.map.length; h++) {
+            for(int r =0; r < this.map[i].length; r++) {
+                    if(this.map[h][r].getHasTreasure()) {
+                          outFile.printf("%d %d\n", h, r);
+                    }
+             }
+       }
+    }
+
     public int[] getStart(int n){
         return this.start[n-1];
     }
