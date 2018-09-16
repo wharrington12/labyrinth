@@ -13,13 +13,9 @@ PImage floor;
 PImage gameOverText;
 PImage minoImage;
 PImage chalice;
-<<<<<<< HEAD
 PImage cyanPlayer;
 PImage magentaPlayer;
-=======
-PImage escaped;
 PImage brick;
->>>>>>> c94c31d9553138a9da1f47b2f2e46bc5d679e627
 PImage[] flags;
 PImage[] gameOver;
 PImage[] iWalls;
