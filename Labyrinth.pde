@@ -1,4 +1,4 @@
-Level lev = new Level(2);
+Level lev = new Level(1);
 Square[][] map = lev.getMap();
         
 GameState gs = new GameState();
@@ -30,7 +30,7 @@ boolean  moveTiles = false;
 boolean isOver = false;
      
 void settings() {
-  size (700, 700);
+  size(700,700);
 }
     
 void setup() {
@@ -62,6 +62,7 @@ void setup() {
   for (int i=0; i<haveMoved.length; i++){
     haveMoved[i] = false;
   }
+  
   flags = new PImage[2];
   iWalls = new PImage[4];
   floor = loadImage("images/pixil-frame-0 (1).png");
@@ -276,8 +277,8 @@ void setup() {
     
     void drawGs(GameState gs){
       background(255);
-      for (int i = 0; i < 7; i++) {
-         for (int j = 0; j < 7; j++) {
+      for (int i = 0; i < gs.gMap.length; i++) {
+         for (int j = 0; j < gs.gMap[0].length; j++) {
             image(floor, 100*i, 100*j);  
          }
       }
