@@ -86,6 +86,8 @@ void setup() {
    int counter = 0;
    int winner = 3;
    int mod = 0;
+   boolean easterEggP1 = true;
+   boolean easterEggP2 = true;
    void draw() {
         if (!isOver) {
           for (int i = 0; i < 3; i++) {
@@ -93,10 +95,10 @@ void setup() {
              isOver = true;
              direction = "";
              winner = i;
-             if (winner == 2) {
-                mod = 16; 
-             } else {
+             if (easterEggP1 || easterEggP2) {
                 mod = 37; 
+             } else {
+                mod = 16; 
              }
            }
           }
@@ -108,6 +110,12 @@ void setup() {
           for(i=0; i < 3 && haveMoved[i]; i++){}
           if (i == mover || i == 2){
             try {
+              if (i == 0 && !direction.equals("same")) {
+                easterEggP1 = false;
+              }
+              if (i == 1 && !direction.equals("same")) {
+                easterEggP2 = false;
+              }
               gs = takeTurn(i, gs, direction);
               haveMoved[i] = true;
             } catch(InvalidMoveException e) {
@@ -133,21 +141,21 @@ void setup() {
       if (winner == 2) {
         background(0);
         if (s.equals("")) {
-          image(gameOverText, 0, 0);
-          image(gameOver[i], 0, 0);
-          delay(85);
+          if (easterEggP1 || easterEggP2) {
+            image(playerWonGif[i], 0, 0);
+            delay(50);
+          } else {
+            image(gameOverText, 0, 0);
+            image(gameOver[i], 0, 0);
+            delay(85);
+          }
         } else {
            exit(); 
         }
       } else {
-        background(0);
-        if (s.equals("")) {
-           image(playerWonGif[i], 0, 0);
-           delay(50);
-        } else {
-           exit(); 
-        }
+        exit(); 
       }
+      
     }
     void keyPressed() {
        if (key == 'w') {
