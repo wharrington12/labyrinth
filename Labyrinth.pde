@@ -13,8 +13,13 @@ PImage floor;
 PImage gameOverText;
 PImage minoImage;
 PImage chalice;
+<<<<<<< HEAD
 PImage cyanPlayer;
 PImage magentaPlayer;
+=======
+PImage escaped;
+PImage brick;
+>>>>>>> c94c31d9553138a9da1f47b2f2e46bc5d679e627
 PImage[] flags;
 PImage[] gameOver;
 PImage[] iWalls;
@@ -23,7 +28,7 @@ PImage[] playerWonGif;
 int mover = -1;
 String direction = "";
 
-boolean[] haveMoved = new boolean[3];
+boolean[] haveMoved = new boolean[4];
 boolean  moveTiles = false;
 
 boolean isOver = false;
@@ -35,7 +40,7 @@ void settings() {
 void setup() {
   background(255);
   gs.setMap(lev.getMap());
-  gs.setGameMode("Collab");
+  gs.setGameMode("Normal");
   gs.setNumTreasure(lev.getNumTreasure());
   
   player1.setPosition(lev.getStart(1));
@@ -72,6 +77,8 @@ void setup() {
   cyanPlayer = loadImage("images/cyan-player.png");
   magentaPlayer = loadImage("images/magenta-player.png");
   chalice = loadImage("images/chalice.png");
+  brick = loadImage("images/brick.jpg");
+  brick.resize(700, 700);
   flags[0] = loadImage("images/cyan-flag.png");
   flags[1] = loadImage("images/magenta-flag.png");
   iWalls[0] = loadImage("images/top-wall.png");
@@ -91,7 +98,7 @@ void setup() {
 }
    int counter = 0;
    int winner = 3;
-   int mod = 0;
+   int mod = 1;
    boolean easterEggP1 = true;
    boolean easterEggP2 = true;
    void draw() {
@@ -113,8 +120,8 @@ void setup() {
           moveTiles = false;
           int i; 
           delay(100);
-          for(i=0; i < 3 && haveMoved[i]; i++){}
-          if (i == mover || i == 2){
+          for(i=0; i < 4 && haveMoved[i]; i++){}
+          if (i == mover || i >= 2){
             try {
               if (i == 0 && !direction.equals("same")) {
                 easterEggP1 = false;
@@ -132,6 +139,7 @@ void setup() {
             haveMoved[0] = !m[0].getIsAlive();
             haveMoved[1] = !m[1].getIsAlive();
             haveMoved[2] = false;
+            haveMoved[3] = false;
             moveTiles = true;
           }
           mover = -1;
@@ -159,10 +167,20 @@ void setup() {
            exit(); 
         }
       } else {
-        exit(); 
+        background(0);
+        if (s.equals("")) {
+          image(brick, 0, 0);
+          String message = "Congratulations, you escaped!";
+          fill(255);
+          textSize(25);
+          text(message, 175, 350);
+        } else {
+          exit(); 
+        }
       }
       
     }
+    
     void keyPressed() {
        if (key == 'w') {
          mover = 0;
@@ -212,6 +230,9 @@ void setup() {
     }*/
     
     public static GameState takeTurn(int mover, GameState gs, String dir){
+        if (mover == 3) {
+           mover = 2; 
+        }
         if (mover==2){
    
             MoveThing[] players = new MoveThing[2];
