@@ -14,6 +14,7 @@ PImage gameOverText;
 PImage[] flags;
 PImage[] gameOver;
 PImage[] iWalls;
+PImage[] playerWonGif;
 
 int mover = -1;
 String direction = "";
@@ -73,9 +74,15 @@ void setup() {
      gameOver[i] = loadImage("images/blood/blood"+Integer.toString(i+1)+".png"); 
      gameOver[i].resize(700, 700);
   }
+  playerWonGif = new PImage[37];
+  for (int i = 0; i < 37; i++) {
+     playerWonGif[i] = loadImage("images/deadpool/deadpool"+Integer.toString(i+1)+".png");
+     playerWonGif[i].resize(700, 600);
+  }
 }
    int counter = 0;
    int winner = 3;
+   int mod = 0;
    void draw() {
         if (!isOver) {
           for (int i = 0; i < 3; i++) {
@@ -83,6 +90,11 @@ void setup() {
              isOver = true;
              direction = "";
              winner = i;
+             if (winner == 2) {
+                mod = 16; 
+             } else {
+                mod = 37; 
+             }
            }
           }
         //print(direction);
@@ -109,7 +121,7 @@ void setup() {
           direction = "";
         } else {
            ifOver(direction, counter, winner);
-           counter = (counter+1) % 16;
+           counter = (counter+1) % mod;
         }
         
     }
@@ -121,6 +133,14 @@ void setup() {
           image(gameOverText, 0, 0);
           image(gameOver[i], 0, 0);
           delay(85);
+        } else {
+           exit(); 
+        }
+      } else {
+        background(0);
+        if (s.equals("")) {
+           image(playerWonGif[i], 0, 0);
+           delay(50);
         } else {
            exit(); 
         }
