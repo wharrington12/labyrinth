@@ -63,6 +63,7 @@ void setup() {
         drawGs(gs);
         moveTiles = false;
         int i; 
+        delay(100);
         for(i=0; i < 3 && haveMoved[i]; i++){}
         if (i == mover || i == 2){
           try {
@@ -72,13 +73,14 @@ void setup() {
             
           }
         }
-        for (i=0; i < 3 && haveMoved[i]; i++) {}
         if (i == 3) {
-          haveMoved[0] = false;
-          haveMoved[1] = false;
+          haveMoved[0] = !m[0].getIsAlive();
+          haveMoved[1] = !m[1].getIsAlive();
           haveMoved[2] = false;
           moveTiles = true;
         }
+        mover = -1;
+        direction = "";
         
     }
     
@@ -121,14 +123,14 @@ void setup() {
        }
     }
     
-    public static Square[][] move(Square[][] map){
+    /*public static Square[][] move(Square[][] map){
         for (int i=0; i<map.length; i++){
             for (int j=0; j<map[0].length; j++){
                 map[i][j].move();
             }
         }
         return map;
-    }
+    }*/
     
     public static GameState takeTurn(int mover, GameState gs, String dir){
         if (mover==2){
@@ -180,7 +182,7 @@ void setup() {
       background(255);
       for (int i = 0; i < 7; i++) {
          for (int j = 0; j < 7; j++) {
-            image(floor, 100*i, 100*j); 
+            image(floor, 100*i, 100*j);  
          }
       }
       fill(0);
