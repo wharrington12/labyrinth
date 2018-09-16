@@ -180,7 +180,7 @@ public class Level {
                 break;
         }
     }
-    public Square[][] input(String s) throws IOException {
+    public void input(String s) throws IOException {
         Scanner reader = new Scanner(new File(s));
         int i, j, k, a, b, c;
         while(reader.hasNext()) {
@@ -221,21 +221,21 @@ public class Level {
     public void output (String s) throws IOException {
        PrintWriter outFile = new PrintWriter(new File(s));
        outFile.printf("%d%d\n", this.map.length,  this.map[1].length);
-       for(int i = 0; i < this.start.length, i++) {
+       for(int i = 0; i < this.start.length; i++) {
                outFile.printf("%d %d\n", this.start[i][0], this.start[i][1]);
        }
-       for(int i = 0; i < this.goal.length, i++) {
+       for(int i = 0; i < this.goal.length; i++) {
                outFile.printf("%d %d\n", this.goal[i][0], this.goal[i][1]);
        }
        for (int h = 0; h < this.map.length; h++) {
-            for(int r =0; r < this.map[i].length; r++) {
+            for(int r =0; r < this.map[h].length; r++) {
                     int[] walls = this.map[h][r].getWalls(); 
                     outFile.printf("%d %d %d %d\n", walls[0], walls[1], walls[2], walls[3]);
              }
        }
        outFile.printf("%d\n", this.numTreasure);
        for (int h = 0; h < this.map.length; h++) {
-            for(int r =0; r < this.map[i].length; r++) {
+            for(int r =0; r < this.map[h].length; r++) {
                     if(this.map[h][r].getHasTreasure()) {
                           outFile.printf("%d %d\n", h, r);
                     }
