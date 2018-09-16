@@ -56,14 +56,14 @@ void setup() {
     haveMoved[i] = false;
   }
   flags = new PImage[2];
-  floor = loadImage("pixil-frame-0 (1).png");
-  gameOverText = loadImage("Game_Over.png");
+  floor = loadImage("images/pixil-frame-0 (1).png");
+  gameOverText = loadImage("images/Game_Over.png");
   gameOverText.resize(700, 700);
-  flags[0] = loadImage("cyan-flag.png");
-  flags[1] = loadImage("magenta-flag.png");
+  flags[0] = loadImage("images/cyan-flag.png");
+  flags[1] = loadImage("images/magenta-flag.png");
   gameOver = new PImage[16];
   for (int i = 0; i < 16; i++) {
-     gameOver[i] = loadImage("blood"+Integer.toString(i+1)+".png"); 
+     gameOver[i] = loadImage("images/blood/blood"+Integer.toString(i+1)+".png"); 
      gameOver[i].resize(700, 700);
   }
 }
