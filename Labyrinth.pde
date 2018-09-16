@@ -23,7 +23,7 @@ PImage[] playerWonGif;
 int mover = -1;
 String direction = "";
 
-boolean[] haveMoved = new boolean[3];
+boolean[] haveMoved = new boolean[4];
 boolean  moveTiles = false;
 
 boolean isOver = false;
@@ -113,8 +113,8 @@ void setup() {
           moveTiles = false;
           int i; 
           delay(100);
-          for(i=0; i < 3 && haveMoved[i]; i++){}
-          if (i == mover || i == 2){
+          for(i=0; i < 4 && haveMoved[i]; i++){}
+          if (i == mover || i >= 2){
             try {
               if (i == 0 && !direction.equals("same")) {
                 easterEggP1 = false;
@@ -132,6 +132,7 @@ void setup() {
             haveMoved[0] = !m[0].getIsAlive();
             haveMoved[1] = !m[1].getIsAlive();
             haveMoved[2] = false;
+            haveMoved[3] = false;
             moveTiles = true;
           }
           mover = -1;
@@ -172,6 +173,7 @@ void setup() {
       }
       
     }
+    
     void keyPressed() {
        if (key == 'w') {
          mover = 0;
@@ -221,6 +223,9 @@ void setup() {
     }*/
     
     public static GameState takeTurn(int mover, GameState gs, String dir){
+        if (mover == 3) {
+           mover = 2; 
+        }
         if (mover==2){
    
             MoveThing[] players = new MoveThing[2];
