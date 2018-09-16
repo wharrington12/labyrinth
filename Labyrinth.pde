@@ -13,6 +13,8 @@ PImage floor;
 PImage gameOverText;
 PImage minoImage;
 PImage chalice;
+PImage cyanPlayer;
+PImage magentaPlayer;
 PImage[] flags;
 PImage[] gameOver;
 PImage[] iWalls;
@@ -67,6 +69,8 @@ void setup() {
   gameOverText.resize(700, 700);
   minoImage = loadImage("images/minotaur.png");
   minoImage.resize(150,150);
+  cyanPlayer = loadImage("images/cyan-player.png");
+  magentaPlayer = loadImage("images/magenta-player.png");
   chalice = loadImage("images/chalice.png");
   flags[0] = loadImage("images/cyan-flag.png");
   flags[1] = loadImage("images/magenta-flag.png");
@@ -320,12 +324,14 @@ void setup() {
       for (int i=0; i< gs.characters.length; i++){
         int[] pos = gs.characters[i].getPosition();
         if(!gs.characters[i].getIsAlive()) {}
-        else if(i == 2){
-          image(minoImage, 100*pos[1]-12, 100*pos[0]-12);
+        else if(i == 0){
+          image(cyanPlayer, 100*pos[1], 100*pos[0]);
         }
-        else {
-          fill(colors[i][0], colors[i][1], colors[i][2]);
-          ellipse(100*pos[1] + 50, 100*pos[0] + 50, 50, 50);
+        else if(i == 1){
+          image(magentaPlayer, 100*pos[1], 100*pos[0]);
+        }
+        else{
+          image(minoImage, 100*pos[1]-12, 100*pos[0]-12);
         }
       }
     }
