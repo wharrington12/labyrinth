@@ -13,6 +13,8 @@ PImage floor;
 PImage gameOverText;
 PImage minoImage;
 PImage chalice;
+PImage escaped;
+PImage brick;
 PImage[] flags;
 PImage[] gameOver;
 PImage[] iWalls;
@@ -33,7 +35,7 @@ void settings() {
 void setup() {
   background(255);
   gs.setMap(lev.getMap());
-  gs.setGameMode("Collab");
+  gs.setGameMode("Normal");
   gs.setNumTreasure(lev.getNumTreasure());
   
   player1.setPosition(lev.getStart(1));
@@ -68,6 +70,8 @@ void setup() {
   minoImage = loadImage("images/minotaur.png");
   minoImage.resize(150,150);
   chalice = loadImage("images/chalice.png");
+  brick = loadImage("images/brick.jpg");
+  brick.resize(700, 700);
   flags[0] = loadImage("images/cyan-flag.png");
   flags[1] = loadImage("images/magenta-flag.png");
   iWalls[0] = loadImage("images/top-wall.png");
@@ -87,7 +91,7 @@ void setup() {
 }
    int counter = 0;
    int winner = 3;
-   int mod = 0;
+   int mod = 1;
    boolean easterEggP1 = true;
    boolean easterEggP2 = true;
    void draw() {
@@ -155,7 +159,16 @@ void setup() {
            exit(); 
         }
       } else {
-        exit(); 
+        background(0);
+        if (s.equals("")) {
+          image(brick, 0, 0);
+          String message = "Congratulations, you escaped!";
+          fill(255);
+          textSize(25);
+          text(message, 175, 350);
+        } else {
+          exit(); 
+        }
       }
       
     }
