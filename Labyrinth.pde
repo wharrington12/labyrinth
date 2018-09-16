@@ -10,13 +10,17 @@ Npc minotaur = new Npc();
 MoveThing[] m = new MoveThing[3];
 
 PImage floor;
+PImage gameOverText;
 PImage[] flags;
+PImage[] gameOver;
 
 int mover = -1;
 String direction = "";
 
 boolean[] haveMoved = new boolean[3];
 boolean  moveTiles = false;
+
+boolean isOver = false;
      
 void settings() {
   size (700, 700);
@@ -53,41 +57,68 @@ void setup() {
   }
   flags = new PImage[2];
   floor = loadImage("pixil-frame-0 (1).png");
+  gameOverText = loadImage("Game_Over.png");
+  gameOverText.resize(700, 700);
   flags[0] = loadImage("cyan-flag.png");
   flags[1] = loadImage("magenta-flag.png");
+  gameOver = new PImage[16];
+  for (int i = 0; i < 16; i++) {
+     gameOver[i] = loadImage("blood"+Integer.toString(i+1)+".png"); 
+     gameOver[i].resize(700, 700);
+  }
 }
-   
+   int counter = 0;
+   int winner = 3;
    void draw() {
-        for (int i = 0; i < 3; i++) {
+        if (!isOver) {
+          for (int i = 0; i < 3; i++) {
            if (m[i].getWon()) {
-              exit(); 
+             isOver = true;
+             direction = "";
+             winner = i;
            }
-        }
-        //print(direction);
-        drawGs(gs);
-        moveTiles = false;
-        int i; 
-        delay(100);
-        for(i=0; i < 3 && haveMoved[i]; i++){}
-        if (i == mover || i == 2){
-          try {
-            gs = takeTurn(i, gs, direction);
-            haveMoved[i] = true;
-          } catch(InvalidMoveException e) {
-            
           }
+        //print(direction);
+          drawGs(gs);
+          moveTiles = false;
+          int i; 
+          delay(100);
+          for(i=0; i < 3 && haveMoved[i]; i++){}
+          if (i == mover || i == 2){
+            try {
+              gs = takeTurn(i, gs, direction);
+              haveMoved[i] = true;
+            } catch(InvalidMoveException e) {
+              
+            }
+          }
+          if (i == 3) {
+            haveMoved[0] = !m[0].getIsAlive();
+            haveMoved[1] = !m[1].getIsAlive();
+            haveMoved[2] = false;
+            moveTiles = true;
+          }
+          mover = -1;
+          direction = "";
+        } else {
+           ifOver(direction, counter, winner);
+           counter = (counter+1) % 16;
         }
-        if (i == 3) {
-          haveMoved[0] = !m[0].getIsAlive();
-          haveMoved[1] = !m[1].getIsAlive();
-          haveMoved[2] = false;
-          moveTiles = true;
-        }
-        mover = -1;
-        direction = "";
         
     }
     
+    void ifOver(String s, int i, int winner) {
+      if (winner == 2) {
+        background(0);
+        if (s.equals("")) {
+          image(gameOverText, 0, 0);
+          image(gameOver[i], 0, 0);
+          delay(85);
+        } else {
+           exit(); 
+        }
+      }
+    }
     void keyPressed() {
        if (key == 'w') {
          mover = 0;
