@@ -10,6 +10,7 @@ Npc minotaur = new Npc();
 MoveThing[] m = new MoveThing[3];
 
 PImage floor;
+PImage[] flags;
 
 int mover = -1;
 String direction = "";
@@ -50,7 +51,10 @@ void setup() {
   for (int i=0; i<haveMoved.length; i++){
     haveMoved[i] = false;
   }
-  floor = loadImage("pixil-frame-0.png.png");
+  flags = new PImage[2];
+  floor = loadImage("pixil-frame-0 (1).png");
+  flags[0] = loadImage("cyan-flag.png");
+  flags[1] = loadImage("magenta-flag.png");
 }
    
    void draw() {
@@ -239,8 +243,8 @@ void setup() {
       for(int i = 0; i < gs.characters.length; i++) {
                 
         if(i != 2) {
-          fill(colors[i][0], colors[i][1], colors[i][2]);
-          rect(100*gs.characters[i].goal[1] + 10, 100*gs.characters[i].goal[0] + 10, 80, 80);
+          image(flags[i], 100*gs.characters[i].goal[1], 100*gs.characters[i].goal[0]);
+          //rect(100*gs.characters[i].goal[1] + 10, 100*gs.characters[i].goal[0] + 10, 80, 80);
         }
       }
         
