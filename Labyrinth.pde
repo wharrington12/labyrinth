@@ -13,6 +13,7 @@ PImage floor;
 PImage gameOverText;
 PImage[] flags;
 PImage[] gameOver;
+PImage[] iWalls;
 
 int mover = -1;
 String direction = "";
@@ -56,11 +57,17 @@ void setup() {
     haveMoved[i] = false;
   }
   flags = new PImage[2];
+  iWalls = new PImage[4];
   floor = loadImage("images/pixil-frame-0 (1).png");
+  floor.filter(GRAY);
   gameOverText = loadImage("images/Game_Over.png");
   gameOverText.resize(700, 700);
   flags[0] = loadImage("images/cyan-flag.png");
   flags[1] = loadImage("images/magenta-flag.png");
+  iWalls[0] = loadImage("images/top-wall.png");
+  iWalls[1] = loadImage("images/right-wall.png");
+  iWalls[2] = loadImage("images/bottom-wall.png");
+  iWalls[3] = loadImage("images/left-wall.png");
   gameOver = new PImage[16];
   for (int i = 0; i < 16; i++) {
      gameOver[i] = loadImage("images/blood/blood"+Integer.toString(i+1)+".png"); 
@@ -231,16 +238,16 @@ void setup() {
           }
           int[] walls = gs.gMap[i][j].getWalls();
           if (walls[0] == 1) {
-            rect(j*100 + 0, i*100 + 0, 98, 9);
+            image(iWalls[0], 100*j, 100*i);
           }
           if (walls[1] == 1) {
-            rect(j*100 + 90 ,i*100 + 0, 9, 98);
+            image(iWalls[1], 100*j, 100*i);
           }
           if (walls[2] == 1) {
-            rect(j*100 + 0,i*100 + 90, 98, 9);
+            image(iWalls[2], 100*j, 100*i);
           }
           if (walls[3] == 1) {
-            rect(j*100 + 0,i*100 + 0, 9, 98);
+            image(iWalls[3], 100*j, 100*i);
           }
           //Draws the treasure for coop
           if (gs.gMap[i][j].getHasTreasure()&&gs.gameMode.equals("Collab")){
